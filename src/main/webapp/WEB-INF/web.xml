@@ -7,7 +7,7 @@
 	<display-name>Profile Management</display-name>
   
 	<welcome-file-list>
-		<welcome-file>home.html</welcome-file>
+		<welcome-file>views/home.html</welcome-file>
 	</welcome-file-list>
 	
 	<servlet>  
