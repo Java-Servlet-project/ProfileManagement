@@ -13,30 +13,30 @@ public class WelcomeServlet extends DefaultServlet {
     private static final long serialVersionUID = -5411483885505423770L;
 
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) {
-        //try {
-            final String valueFromConfig = getServletConfig().getInitParameter("myparam");
-            final String valueFromContext = getServletContext().getInitParameter("context-param-name");
-            
-            final StringBuffer buffer = new StringBuffer();
-            buffer.append("<html><body>");
-            //buffer.append("<h1>From Servlet Config : " + valueFromConfig + "</h1>");
-            buffer.append("<h1>Welcome Servlet Context : " + valueFromContext + "</h1>");
-            buffer.append("</body></html>");
-            
-            printHtmlContent(response, buffer.toString());
-            
-            getServletContext().setInitParameter("from-welcome-servlet", "context-param-value-2");
+        // try {
+        getServletContext().setAttribute("from-welcome-servlet", "context-param-value-2");
+        
+        final String attrValue = (String) getServletContext().getAttribute("from-welcome-servlet");
 
-            //final RequestDispatcher dispatcher = request.getRequestDispatcher("login");
-            //final RequestDispatcher dispatcher = request.getRequestDispatcher("views/home.html");
-            //dispatcher.forward(request, response);
-            //dispatcher.include(request, response);
-            //response.sendRedirect("login");
+        final StringBuffer buffer = new StringBuffer();
+        buffer.append("<html><body>");
+        buffer.append("<h1> Attribute value = " + attrValue + "</h1>");
+        buffer.append("</body></html>");
 
-         /*catch (final IOException e) {
-            e.printStackTrace();
-        } *//*
-           * catch (final ServletException e) { e.printStackTrace(); }
-           */
+        printHtmlContent(response, buffer.toString());
+
+        
+
+        // final RequestDispatcher dispatcher = request.getRequestDispatcher("login");
+        // final RequestDispatcher dispatcher = request.getRequestDispatcher("views/home.html");
+        // dispatcher.forward(request, response);
+        // dispatcher.include(request, response);
+        // response.sendRedirect("login");
+
+        /*
+         * catch (final IOException e) { e.printStackTrace(); }
+         *//*
+            * catch (final ServletException e) { e.printStackTrace(); }
+            */
     }
 }

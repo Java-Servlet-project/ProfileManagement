@@ -17,16 +17,15 @@ public class LoginServlet extends DefaultServlet {
     private final LoginService loginService = new LoginService();
     
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) {
-        final String valueFromConfig = getServletConfig().getInitParameter("myparam");
-        final String valueFromContext = getServletContext().getInitParameter("from-welcome-servlet");
+        final String attrValue = (String) getServletContext().getAttribute("from-welcome-servlet");
         
         final StringBuffer buffer = new StringBuffer();
         buffer.append("<html><body>");
-        //buffer.append("<h1>Login Servlet : From Servlet Config : " + valueFromConfig + "</h1>");
-        buffer.append("<h1>Login Servlet Context : " + valueFromContext + "</h1>");
+        buffer.append("<h1> Attribute value = " + attrValue + "</h1>");
         buffer.append("</body></html>");
         
         printHtmlContent(response, buffer.toString());
+        getServletContext().removeAttribute("from-welcome-servlet");
     }
     
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) {
