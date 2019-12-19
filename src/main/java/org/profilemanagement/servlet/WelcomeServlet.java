@@ -1,10 +1,5 @@
 package org.profilemanagement.servlet;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,31 +7,18 @@ public class WelcomeServlet extends DefaultServlet {
 
     private static final long serialVersionUID = -5411483885505423770L;
 
+    @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) {
-        // try {
-        getServletContext().setAttribute("from-welcome-servlet", "context-param-value-2");
-        
+        getServletContext().setAttribute("from-welcome-servlet", "I am from servlet context attribute");
+        request.setAttribute("req-attr", "Its from request attr");
+
         final String attrValue = (String) getServletContext().getAttribute("from-welcome-servlet");
+        final String attrValue1 = (String) getServletContext().getAttribute("from-login-servlet");
 
         final StringBuffer buffer = new StringBuffer();
-        buffer.append("<html><body>");
-        buffer.append("<h1> Attribute value = " + attrValue + "</h1>");
-        buffer.append("</body></html>");
+        buffer.append("<h1> Welcome Servlet Attribute value = " + attrValue + "</h1>");
+        buffer.append("<h1> Welcome Servlet Attribute value = " + attrValue1 + "</h1>");
 
         printHtmlContent(response, buffer.toString());
-
-        
-
-        // final RequestDispatcher dispatcher = request.getRequestDispatcher("login");
-        // final RequestDispatcher dispatcher = request.getRequestDispatcher("views/home.html");
-        // dispatcher.forward(request, response);
-        // dispatcher.include(request, response);
-        // response.sendRedirect("login");
-
-        /*
-         * catch (final IOException e) { e.printStackTrace(); }
-         *//*
-            * catch (final ServletException e) { e.printStackTrace(); }
-            */
     }
 }

@@ -1,33 +1,35 @@
 package org.profilemanagement.servlet;
 
+import org.profilemanagement.service.LoginService;
+
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.profilemanagement.service.LoginService;
-
 public class LoginServlet extends DefaultServlet {
 
     private static final long serialVersionUID = -3959552837268080363L;
-    
+
     private final LoginService loginService = new LoginService();
-    
+
+    @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) {
-        final String attrValue = (String) getServletContext().getAttribute("from-welcome-servlet");
-        
         final StringBuffer buffer = new StringBuffer();
-        buffer.append("<html><body>");
-        buffer.append("<h1> Attribute value = " + attrValue + "</h1>");
-        buffer.append("</body></html>");
-        
+        buffer.append("<h1> Login Servlet Attribute value = " + getServletContext().getAttribute("from-welcome-servlet") + "</h1>");
+        buffer.append("<h2> From request attr : " + request.getAttribute("req-attr") + "</h2>");
         printHtmlContent(response, buffer.toString());
+
         getServletContext().removeAttribute("from-welcome-servlet");
+
+        if (getServletContext().getAttribute("from-welcome-servlet") == null) {
+            getServletContext().setAttribute("from-login-servlet", "I am updated value");
+        }
     }
-    
+
+    @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) {
         if (loginService.login(request)) {
             final String content = "<h1>Log In Successfull</h1>";
