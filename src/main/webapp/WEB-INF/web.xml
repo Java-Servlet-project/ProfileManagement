@@ -5,25 +5,25 @@
 <web-app>
 
 	<display-name>Profile Management</display-name>
-  
+
 	<welcome-file-list>
 		<welcome-file>views/home.html</welcome-file>
 	</welcome-file-list>
 	
 	<context-param>  
-	    <param-name>context-param-name</param-name>  
-	    <param-value>context-param-value-1</param-value>  
-    </context-param>  
+		<param-name>context-param-name</param-name>  
+		<param-value>context-param-value-1</param-value>  
+	</context-param>  
 	
 	<servlet>  
 		<servlet-name>WelcomeServlet</servlet-name>
 		<servlet-class>org.profilemanagement.servlet.WelcomeServlet</servlet-class>
 		<load-on-startup>0</load-on-startup>
 		
-		<init-param>  
-			<param-name>myparam</param-name>  
-			<param-value>myparam-value</param-value>  
-		</init-param> 	
+		<init-param>
+			<param-name>myparam</param-name>
+			<param-value>myparam-value</param-value>
+		</init-param>	
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>WelcomeServlet</servlet-name>
@@ -38,6 +38,16 @@
 	<servlet-mapping>
 		<servlet-name>LoginServlet</servlet-name>
 		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ProfileServlet</servlet-name>
+		<display-name>ProfileServlet</display-name>
+		<servlet-class>org.profilemanagement.servlet.ProfileServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProfileServlet</servlet-name>
+		<url-pattern>/profile</url-pattern>
 	</servlet-mapping>
 
 </web-app>
