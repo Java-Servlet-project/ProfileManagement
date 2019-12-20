@@ -12,6 +12,7 @@ public class DefaultServlet extends HttpServlet {
     
     protected void printHtmlContent(final HttpServletResponse response, final String content) {
         try {
+            response.setContentType("text/html");
             final PrintWriter writer = response.getWriter();
             writer.println("<html><body>");
             writer.println(content);

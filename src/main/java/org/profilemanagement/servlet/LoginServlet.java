@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,21 +18,14 @@ public class LoginServlet extends DefaultServlet {
 
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) {
-        final StringBuffer buffer = new StringBuffer();
-        buffer.append("<h1> Login Servlet Attribute value = " + getServletContext().getAttribute("from-welcome-servlet") + "</h1>");
-        buffer.append("<h2> From request attr : " + request.getAttribute("req-attr") + "</h2>");
-        printHtmlContent(response, buffer.toString());
 
-        getServletContext().removeAttribute("from-welcome-servlet");
-
-        if (getServletContext().getAttribute("from-welcome-servlet") == null) {
-            getServletContext().setAttribute("from-login-servlet", "I am updated value");
-        }
     }
 
     @Override
     protected void doPost(final HttpServletRequest request, final HttpServletResponse response) {
-        if (loginService.login(request)) {
+        final Cookie cookie = loginService.loginAndSetCookie(request);
+        if (null != cookie) {
+            response.addCookie(cookie);
             final String content = "<h1>Log In Successfull</h1>";
             printHtmlContent(response, content);
         } else {
