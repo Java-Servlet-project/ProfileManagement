@@ -1,6 +1,7 @@
 package org.profilemanagement.servlet;
 
 import org.profilemanagement.service.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 
@@ -14,7 +15,8 @@ public class LoginServlet extends DefaultServlet {
 
     private static final long serialVersionUID = -3959552837268080363L;
 
-    private final LoginService loginService = new LoginService();
+    @Autowired
+    private LoginService loginService;
 
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) {
@@ -26,8 +28,11 @@ public class LoginServlet extends DefaultServlet {
         final Cookie cookie = loginService.loginAndSetCookie(request);
         if (null != cookie) {
             response.addCookie(cookie);
-            final String content = "<h1>Log In Successfull</h1>";
-            printHtmlContent(response, content);
+            final StringBuffer buffer = new StringBuffer();
+            buffer.append("<h1>Log In Successfull</h1>");
+            buffer.append("<br><hr><br>");
+            buffer.append("<a href = 'registration'>Register Now</a>");
+            printHtmlContent(response, buffer.toString());
         } else {
             final String content = "<h1>Login failed ! PLease try again.</h2>";
             printHtmlContent(response, content);
