@@ -4,7 +4,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
+@WebListener
 public class ProfileManagementContext implements ServletContextListener {
 
     public AnnotationConfigApplicationContext context = null;
@@ -12,6 +14,7 @@ public class ProfileManagementContext implements ServletContextListener {
     @Override
     public void contextInitialized(final ServletContextEvent event) {
         context = new AnnotationConfigApplicationContext(SpringJavaConfig.class);
+        // context.refresh();
         event.getServletContext().log("###### ABCDEEEEEEEEEEEEEEEEEEEEEEEEEEEE ##########");
         System.out.println("Hello");
     }
