@@ -17,10 +17,15 @@ public class LoginServlet extends DefaultServlet {
 
     @Autowired
     private LoginService loginService;
+    
+    @Override
+    public void init() {
+        this.loginService = (LoginService) getServletContext().getAttribute("loginService");
+    }
 
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) {
-
+        loginService.doSome();
     }
 
     @Override

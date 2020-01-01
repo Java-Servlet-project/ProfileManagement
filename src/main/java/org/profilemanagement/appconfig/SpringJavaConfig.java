@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 
 @Configuration
+//@ComponentScan(basePackages = "org.profilemanagement.appconfig")
 @ComponentScan(basePackages = "org.profilemanagement.service")
 @ComponentScan(basePackages = "org.profilemanagement.dao")
 public class SpringJavaConfig {
