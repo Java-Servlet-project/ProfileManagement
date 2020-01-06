@@ -5,15 +5,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@WebServlet(name = "RegistrationServlet", urlPatterns = "/registration", loadOnStartup = 1)
 public class RegistrationServlet extends DefaultServlet {
 
     private static final long serialVersionUID = -5205945246703575315L;
 
-    @Autowired
     private RegistrationService registrationService;
+
+    @Override
+    public void init() {
+        this.registrationService = getService(RegistrationService.class);
+    }
 
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) {

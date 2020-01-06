@@ -1,31 +1,33 @@
 package org.profilemanagement.servlet;
 
-import org.profilemanagement.service.LoginService;
+import org.profilemanagement.service.LoginLogoutService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@WebServlet(name = "LoginServlet", urlPatterns = "/login", loadOnStartup = 0)
 public class LoginServlet extends DefaultServlet {
 
     private static final long serialVersionUID = -3959552837268080363L;
 
-    @Autowired
-    private LoginService loginService;
+    private LoginLogoutService loginService;
     
     @Override
     public void init() {
-        this.loginService = (LoginService) getServletContext().getAttribute("loginService");
+        this.loginService = getService(LoginLogoutService.class);
     }
 
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) {
-        loginService.doSome();
     }
 
     @Override
@@ -39,7 +41,7 @@ public class LoginServlet extends DefaultServlet {
             buffer.append("<a href = 'registration'>Register Now</a>");
             printHtmlContent(response, buffer.toString());
         } else {
-            final String content = "<h1>Login failed ! PLease try again.</h2>";
+            final String content = "<h1>Login failed ! Please try again.</h2>";
             printHtmlContent(response, content);
             final RequestDispatcher dispatcher = request.getRequestDispatcher("views/login.html");
             try {

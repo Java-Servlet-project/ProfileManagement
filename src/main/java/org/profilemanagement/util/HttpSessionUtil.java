@@ -12,17 +12,21 @@ public final class HttpSessionUtil {
     }
 
     public static Object getObjectFromSession(final HttpServletRequest request, final String attrName) {
+        Object object = null;
         final HttpSession httpSession = request.getSession(Boolean.FALSE);
-        final Object object = httpSession.getAttribute(attrName);
+        object = httpSession != null ? httpSession.getAttribute(attrName) : null;
         return object;
     }
 
     public static void removeObjectFromSession(final HttpServletRequest request, final String attrName) {
         final HttpSession httpSession = request.getSession(Boolean.FALSE);
-        httpSession.removeAttribute(attrName);
+        if (httpSession != null)
+            httpSession.removeAttribute(attrName);
     }
 
     public static void invalidateSession(final HttpServletRequest request) {
-        request.getSession(Boolean.FALSE).invalidate();
+        final HttpSession httpSession = request.getSession(Boolean.FALSE);
+        if (httpSession != null)
+            httpSession.invalidate();
     }
 }

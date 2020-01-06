@@ -18,9 +18,12 @@ public class ProfileService {
             if (IamConstant.LOGIN_COOKIE_NAME.equals(cookie.getName())) {
                 buffer.append("<h1>Hello ").append(cookie.getValue()).append(" ! ");
                 final Employee employee = (Employee) HttpSessionUtil.getObjectFromSession(request, cookie.getValue());
-                buffer.append("<h2> First Name - " + employee.getFirstName() + "</h2>");
-                buffer.append("<h2> Middle Name - " + employee.getMiddleName() + "</h2>");
-                buffer.append("<h2> Last Name - " + employee.getLastName() + "</h2>");
+                if (employee != null) {
+                    buffer.append("<h2> First Name - " + employee.getFirstName() + "</h2>");
+                    buffer.append("<h2> Middle Name - " + employee.getMiddleName() + "</h2>");
+                    buffer.append("<h2> Last Name - " + employee.getLastName() + "</h2>");
+                }
+                
             }
         }
         return buffer.toString();
